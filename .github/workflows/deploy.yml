@@ -1,0 +1,63 @@
+# Builds and deploys the static site. This single workflow handles both
+# regular code pushes AND content published from the /admin (Decap CMS)
+# dashboard — a CMS "publish" is just a normal commit to `main` via the
+# GitHub API, so it triggers this same pipeline. No second deployment
+# mechanism is needed.
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        # VITE_BASE_PATH must match "/<repository-name>/" unless this repo
+        # is published at the root of a <username>.github.io Pages site,
+        # in which case set it to "/".
+        run: npm run build
+        env:
+          VITE_BASE_PATH: /${{ github.event.repository.name }}/
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

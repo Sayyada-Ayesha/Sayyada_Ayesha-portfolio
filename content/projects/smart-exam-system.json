@@ -1,0 +1,16 @@
+{
+  "title": "Smart Exam System",
+  "slug": "smart-exam-system",
+  "shortDescription": "A Streamlit web app for GCUH that uses Ollama for local AI grading of subjective exam answers.",
+  "fullDescription": "A Streamlit web app for GCUH that uses Ollama for local AI grading of subjective exam answers, with a Supabase backend, PWA support, anti-cheat features, and automated HOD email reporting.",
+  "category": "AI",
+  "status": "IN DEVELOPMENT",
+  "technologies": ["Streamlit", "Ollama", "Supabase"],
+  "year": "",
+  "featured": true,
+  "thumbnail": "",
+  "gallery": [],
+  "projectUrl": "",
+  "githubUrl": "",
+  "caseStudyUrl": ""
+}

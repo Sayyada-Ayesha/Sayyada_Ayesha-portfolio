@@ -1,0 +1,286 @@
+backend:
+  name: github
+  repo: sayyada-ayesha/Sayyada_Ayesha-portfolio
+  branch: main
+  base_url: https://sayyada-ayesha-cms-auth.netlify.app # <-- EDIT to your actual Netlify auth site URL — see docs/CMS-SETUP.md
+  # No auth_endpoint override needed: Netlify's OAuth provider serves the
+  # standard endpoints Decap expects automatically.
+
+# Open Authoring is intentionally OFF — this is a single-owner portfolio,
+# not a public wiki. Only a GitHub account with push access to the repo
+# (in practice: the owner) can authenticate and publish anything.
+site_url: https://sayyada-ayesha.github.io/Sayyada_Ayesha-portfolio/
+
+# Default upload location for any field that doesn't override it below.
+media_folder: "public/assets/uploads"
+public_folder: "/assets/uploads"
+
+publish_mode: simple
+show_preview_links: false
+
+collections:
+  # ---------------------------------------------------------------
+  - name: projects
+    label: "Projects"
+    label_singular: "Project"
+    description: "Case studies and builds shown in the Projects section."
+    folder: "content/projects"
+    create: true
+    delete: true
+    format: json
+    slug: "{{slug}}"
+    identifier_field: title
+    summary: "{{title}} — {{category}} ({{status}})"
+    fields:
+      - { label: "Title", name: "title", widget: "string", required: true }
+      - { label: "Slug", name: "slug", widget: "string", required: false, hint: "Used only for the file name — leave blank to auto-generate from the title." }
+      - { label: "Short Description", name: "shortDescription", widget: "text", required: false, hint: "One or two sentences — used if Full Description is left blank." }
+      - { label: "Full Description", name: "fullDescription", widget: "text", required: false }
+      - label: "Category"
+        name: "category"
+        widget: "select"
+        required: true
+        options: ["AI", "WEB", "UI/UX", "AUTOMATION", "IOT", "DESIGN", "RESEARCH", "OTHER"]
+      - label: "Status"
+        name: "status"
+        widget: "select"
+        required: false
+        options: ["ACTIVE", "IN DEVELOPMENT", "COMPLETED", "ARCHIVED"]
+      - { label: "Technologies", name: "technologies", widget: "list", required: false, hint: "One technology per line, e.g. React, Supabase." }
+      - { label: "Year", name: "year", widget: "string", required: false }
+      - { label: "Featured", name: "featured", widget: "boolean", default: false, hint: "Shows this project first, ahead of non-featured ones." }
+      - label: "Thumbnail"
+        name: "thumbnail"
+        widget: "image"
+        required: false
+        hint: "The single cover image shown on the project card."
+        media_folder: "/public/assets/projects"
+        public_folder: "/assets/projects"
+      - label: "Gallery"
+        name: "gallery"
+        widget: "list"
+        required: false
+        hint: "Additional screenshots — optional, shown in a project detail view if used."
+        field: { label: "Image", name: "image", widget: "image", media_folder: "/public/assets/projects", public_folder: "/assets/projects" }
+      - { label: "Project URL", name: "projectUrl", widget: "string", required: false }
+      - { label: "GitHub URL", name: "githubUrl", widget: "string", required: false }
+      - { label: "Case Study URL", name: "caseStudyUrl", widget: "string", required: false }
+
+  # ---------------------------------------------------------------
+  - name: portfolio
+    label: "Portfolio / Creative Work"
+    label_singular: "Portfolio Item"
+    description: "Design, writing and research work shown in the Creative Work gallery."
+    folder: "content/portfolio"
+    create: true
+    delete: true
+    format: json
+    slug: "{{slug}}"
+    identifier_field: title
+    summary: "{{title}} — {{category}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string", required: true }
+      - { label: "Slug", name: "slug", widget: "string", required: false, hint: "Used only for the file name — leave blank to auto-generate." }
+      - label: "Category"
+        name: "category"
+        widget: "select"
+        required: true
+        options:
+          [
+            "UI/UX",
+            "GRAPHIC DESIGN",
+            "AI DESIGN",
+            "BRANDING",
+            "DATA / EXCEL",
+            "SEO & WRITING",
+            "RESEARCH",
+            "GUIDES",
+            "LAB MANUALS",
+            "PRESENTATIONS",
+            "ASSIGNMENT WRITING",
+            "CASE STUDY",
+            "OTHER",
+          ]
+      - { label: "Description", name: "description", widget: "text", required: false }
+      - { label: "Year", name: "year", widget: "string", required: false }
+      - { label: "Featured", name: "featured", widget: "boolean", default: false }
+      - label: "Thumbnail"
+        name: "thumbnail"
+        widget: "image"
+        required: false
+        hint: "The single image shown in the gallery grid."
+        media_folder: "/public/assets/portfolio"
+        public_folder: "/assets/portfolio"
+      - label: "Gallery Images"
+        name: "images"
+        widget: "list"
+        required: false
+        hint: "Extra images shown when this item is opened (in addition to the thumbnail)."
+        field: { label: "Image", name: "image", widget: "image", media_folder: "/public/assets/portfolio", public_folder: "/assets/portfolio" }
+      - { label: "External URL", name: "externalUrl", widget: "string", required: false }
+      - label: "PDF"
+        name: "pdf"
+        widget: "file"
+        required: false
+        hint: "Optional — for document-style work (case studies, reports)."
+        media_folder: "/public/assets/portfolio"
+        public_folder: "/assets/portfolio"
+      - { label: "Tags", name: "tags", widget: "list", required: false }
+
+  # ---------------------------------------------------------------
+  - name: publications
+    label: "Books & Publications"
+    label_singular: "Publication"
+    description: "Books and written publications, e.g. Whispering Hollow."
+    folder: "content/publications"
+    create: true
+    delete: true
+    format: json
+    slug: "{{slug}}"
+    identifier_field: title
+    summary: "{{title}} ({{publicationDate}})"
+    fields:
+      - { label: "Title", name: "title", widget: "string", required: true }
+      - { label: "Subtitle", name: "subtitle", widget: "string", required: false }
+      - { label: "Description", name: "description", widget: "text", required: false }
+      - label: "Cover"
+        name: "cover"
+        widget: "image"
+        required: false
+        hint: "The book cover image."
+        media_folder: "/public/assets/publications"
+        public_folder: "/assets/publications"
+      - label: "Preview Pages"
+        name: "previewPages"
+        widget: "list"
+        required: false
+        hint: "Only pages added here are ever shown publicly — the rest of the book is never auto-exposed, no matter how many pages the source file has."
+        field:
+          {
+            label: "Page Image",
+            name: "image",
+            widget: "image",
+            media_folder: "/public/assets/publications",
+            public_folder: "/assets/publications",
+          }
+      - label: "PDF"
+        name: "pdf"
+        widget: "file"
+        required: false
+        hint: "Only attach a full PDF here if you want the complete book publicly downloadable. Leave empty to show previews only."
+        media_folder: "/public/assets/publications"
+        public_folder: "/assets/publications"
+      - { label: "Publication Date", name: "publicationDate", widget: "string", required: false }
+      - { label: "Publisher", name: "publisher", widget: "string", required: false }
+      - { label: "Category", name: "category", widget: "string", required: false }
+      - { label: "External URL", name: "externalUrl", widget: "string", required: false, hint: "e.g. Amazon KDP listing." }
+      - { label: "Featured", name: "featured", widget: "boolean", default: false }
+
+  # ---------------------------------------------------------------
+  - name: certificates
+    label: "Certifications"
+    label_singular: "Certificate"
+    folder: "content/certificates"
+    create: true
+    delete: true
+    format: json
+    slug: "{{slug}}"
+    identifier_field: title
+    summary: "{{title}} — {{issuer}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string", required: true }
+      - { label: "Issuer", name: "issuer", widget: "string", required: false }
+      - { label: "Date", name: "date", widget: "string", required: false }
+      - { label: "Description", name: "description", widget: "text", required: false }
+      - label: "Certificate Image"
+        name: "certificateImage"
+        widget: "image"
+        required: false
+        media_folder: "/public/assets/certificates"
+        public_folder: "/assets/certificates"
+      - label: "Certificate PDF"
+        name: "certificatePdf"
+        widget: "file"
+        required: false
+        media_folder: "/public/assets/certificates"
+        public_folder: "/assets/certificates"
+      - { label: "Verification URL", name: "verificationUrl", widget: "string", required: false }
+      - { label: "Featured", name: "featured", widget: "boolean", default: false }
+
+  # ---------------------------------------------------------------
+  - name: achievements
+    label: "Achievements"
+    label_singular: "Achievement"
+    folder: "content/achievements"
+    create: true
+    delete: true
+    format: json
+    slug: "{{slug}}"
+    identifier_field: title
+    summary: "{{title}} — {{date}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string", required: true }
+      - { label: "Organization", name: "organization", widget: "string", required: false }
+      - { label: "Date", name: "date", widget: "string", required: false }
+      - { label: "Description", name: "description", widget: "text", required: false }
+      - label: "Image"
+        name: "image"
+        widget: "image"
+        required: false
+        media_folder: "/public/assets/branding"
+        public_folder: "/assets/branding"
+      - { label: "Proof (link, image, or PDF)", name: "proof", widget: "file", required: false }
+      - { label: "Featured", name: "featured", widget: "boolean", default: false }
+
+  # ---------------------------------------------------------------
+  - name: settings
+    label: "Site Settings"
+    files:
+      - name: "profile"
+        label: "Profile / About"
+        file: "content/settings/profile.json"
+        format: json
+        fields:
+          - { label: "Name", name: "name", widget: "string" }
+          - { label: "Headline", name: "headline", widget: "string" }
+          - { label: "Short Bio", name: "shortBio", widget: "text" }
+          - { label: "Long Bio", name: "longBio", widget: "text", required: false }
+          - label: "Profile Image"
+            name: "profileImage"
+            widget: "image"
+            required: false
+            media_folder: "/public/assets/profile"
+            public_folder: "/assets/profile"
+          - label: "Resume (PDF)"
+            name: "resume"
+            widget: "file"
+            required: false
+            hint: "The public Download Resume button always points to this file."
+            media_folder: "/public/assets/resume"
+            public_folder: "/assets/resume"
+          - { label: "Location", name: "location", widget: "string", required: false }
+          - { label: "Education", name: "education", widget: "string", required: false }
+          - { label: "Current Focus", name: "currentFocus", widget: "string", required: false }
+          - { label: "Company Name", name: "companyName", widget: "string", required: false }
+          - { label: "Company Description", name: "companyDescription", widget: "text", required: false }
+
+      - name: "social"
+        label: "Social Links"
+        file: "content/settings/social.json"
+        format: json
+        fields:
+          - { label: "Personal LinkedIn", name: "personalLinkedIn", widget: "string", required: false }
+          - { label: "Company LinkedIn", name: "companyLinkedIn", widget: "string", required: false }
+          - { label: "Personal Instagram", name: "personalInstagram", widget: "string", required: false }
+          - { label: "Personal Facebook", name: "personalFacebook", widget: "string", required: false }
+          - { label: "Company Instagram", name: "companyInstagram", widget: "string", required: false }
+          - { label: "Company Facebook", name: "companyFacebook", widget: "string", required: false }
+          - { label: "GitHub", name: "github", widget: "string", required: false }
+          - { label: "Email", name: "email", widget: "string", required: false }
+          - label: "Other Links"
+            name: "otherLinks"
+            widget: "list"
+            required: false
+            fields:
+              - { label: "Label", name: "label", widget: "string" }
+              - { label: "URL", name: "url", widget: "string" }
