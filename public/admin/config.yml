@@ -1,14 +1,11 @@
 backend:
-  name: github
-  repo: sayyada-ayesha/Sayyada_Ayesha-portfolio
+  name: git-gateway
   branch: main
-  base_url: https://sayyada-ayesha-cms-auth.netlify.app # <-- EDIT to your actual Netlify auth site URL — see docs/CMS-SETUP.md
-  # No auth_endpoint override needed: Netlify's OAuth provider serves the
-  # standard endpoints Decap expects automatically.
 
-# Open Authoring is intentionally OFF — this is a single-owner portfolio,
-# not a public wiki. Only a GitHub account with push access to the repo
-# (in practice: the owner) can authenticate and publish anything.
+# Auth is handled by Netlify Identity + Git Gateway (already enabled on
+# the Netlify site serving this admin page) — no GitHub OAuth App, no
+# OAuth proxy, and no personal access token involved. Only Identity
+# users invited on that Netlify site can log in and publish.
 site_url: https://sayyada-ayesha.github.io/Sayyada_Ayesha-portfolio/
 
 # Default upload location for any field that doesn't override it below.
