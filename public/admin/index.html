@@ -1,32 +1,15 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="robots" content="noindex, nofollow" />
-    <title>Content Admin — Sayyada Ayesha Portfolio</title>
-    <style>
-      body { background: #0a0e0e; }
-    </style>
-  </head>
-  <body>
-    <!-- Netlify Identity widget: required so invite / password-recovery
-         links from Identity emails (which land on /admin/#invite_token=...)
-         resolve correctly before Decap CMS's git-gateway backend takes over. -->
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-    <script>
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.on('init', (user) => {
-          if (!user) {
-            window.netlifyIdentity.on('login', () => {
-              document.location.href = '/admin/'
-            })
-          }
-        })
-      }
-    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Decap CMS itself (loaded from CDN — no build step / npm dependency needed) -->
+    <title>Content Manager</title>
+
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  </head>
+
+  <body>
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   </body>
 </html>
