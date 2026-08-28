@@ -1,3 +1,4 @@
+```html
 <!doctype html>
 <html lang="en">
   <head>
@@ -5,10 +6,25 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#0a0e0e" />
-    <title>Sayyada Ayesha | AI Founder, Creative Technologist & Digital Builder</title>
-    <meta name="description" content="Sayyada Ayesha — Founder of SYNX AI Horizon, IT graduate and creative technologist working across AI, automation, digital design, UI/UX and web development." />
-    <link rel="canonical" href="https://sayyada-ayesha.github.io/Sayyada_Ayesha-portfolio/" />
 
+    <title>
+      Sayyada Ayesha | AI Founder, Creative Technologist & Digital Builder
+    </title>
+
+    <meta
+      name="description"
+      content="Sayyada Ayesha — Founder of SYNX AI Horizon, IT graduate and creative technologist working across AI, automation, digital design, UI/UX and web development."
+    />
+
+    <link
+      rel="canonical"
+      href="https://sayyada-ayesha.github.io/Sayyada_Ayesha-portfolio/"
+    />
+
+    <!-- Netlify Identity -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -16,17 +32,51 @@
       rel="stylesheet"
     />
 
+    <!-- Open Graph -->
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Sayyada Ayesha | AI Founder, Creative Technologist & Digital Builder" />
-    <meta property="og:description" content="Founder of SYNX AI Horizon — AI, automation, design and digital products." />
-    <meta property="og:url" content="https://sayyada-ayesha.github.io/Sayyada_Ayesha-portfolio/" />
+    <meta
+      property="og:title"
+      content="Sayyada Ayesha | AI Founder, Creative Technologist & Digital Builder"
+    />
+    <meta
+      property="og:description"
+      content="Founder of SYNX AI Horizon — AI, automation, design and digital products."
+    />
+    <meta
+      property="og:url"
+      content="https://sayyada-ayesha.github.io/Sayyada_Ayesha-portfolio/"
+    />
 
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Sayyada Ayesha | AI Founder, Creative Technologist & Digital Builder" />
-    <meta name="twitter:description" content="Founder of SYNX AI Horizon — AI, automation, design and digital products." />
+    <meta
+      name="twitter:title"
+      content="Sayyada Ayesha | AI Founder, Creative Technologist & Digital Builder"
+    />
+    <meta
+      name="twitter:description"
+      content="Founder of SYNX AI Horizon — AI, automation, design and digital products."
+    />
   </head>
+
   <body>
     <div id="root"></div>
+
     <script type="module" src="/src/main.tsx"></script>
+
+    <!-- Netlify Identity authentication handling -->
+    <script>
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", function (user) {
+          if (user) {
+            window.location.href = "/admin/";
+          }
+        });
+
+        window.netlifyIdentity.on("login", function () {
+          window.location.href = "/admin/";
+        });
+      }
+    </script>
   </body>
 </html>
